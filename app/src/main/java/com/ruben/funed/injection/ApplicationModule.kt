@@ -9,7 +9,8 @@ import com.ruben.funed.data.DataSourceImpl
 import com.ruben.funed.remote.rest.RestApi
 import com.ruben.funed.remote.rest.RestApiImpl
 import com.ruben.funed.remote.retrofit.RetrofitApi
-import com.ruben.funed.utility.ApiConstants
+import com.ruben.funed.remote.retrofit.RetrofitInterceptor
+import com.ruben.funed.remote.ApiConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +41,9 @@ class ApplicationModule {
     fun provideDataSource(restApi: RestApi): DataSource = DataSourceImpl(restApi)
 
     @Provides
+    fun provideRetrofitInterceptor() = RetrofitInterceptor()
+
+    @Provides
     fun provideGson(): Gson {
         val gsonBuilder = GsonBuilder()
         return gsonBuilder.create()
@@ -53,13 +57,14 @@ class ApplicationModule {
     }
 
     @Provides
-    fun provideOkHttpClient(cache: Cache): OkHttpClient {
+    fun provideOkHttpClient(cache: Cache, retrofitInterceptor: RetrofitInterceptor): OkHttpClient {
         val okHttpClient = OkHttpClient.Builder()
         if(BuildConfig.DEBUG) {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             okHttpClient.addNetworkInterceptor(loggingInterceptor)
         }
+        okHttpClient.addInterceptor(retrofitInterceptor)
         okHttpClient.cache(cache)
         okHttpClient.readTimeout(ApiConstants.TIMEOUT.toLong(), TimeUnit.SECONDS)
         okHttpClient.writeTimeout(ApiConstants.TIMEOUT.toLong(), TimeUnit.SECONDS)

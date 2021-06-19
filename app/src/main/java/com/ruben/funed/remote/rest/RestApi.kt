@@ -1,8 +1,10 @@
 package com.ruben.funed.remote.rest
 
+import com.ruben.funed.remote.model.TestResponse
+
 /**
  * Created by ruben.quadros on 19/06/21.
  **/
 interface RestApi {
-    fun getTest()
+    suspend fun getTest(): TestResponse
 }

@@ -1,0 +1,72 @@
+{
+  "assessmentId": "5e97fd8512e60c8459f0531c",
+  "assessmentName": "Unit Test 1",
+  "subject": "Science",
+  "duration": 30,
+  "questions": [
+    {
+      "id": "5828310103619c7514afb9f1",
+      "qno": 1,
+      "text": "<p>Which one of these foods is likely to contain the most bacteria?</p>",
+      "mcOptions": [
+        "<p>Bottled mayonnaise</p>",
+        "<p>Cooked chicken</p>",
+        "<p>Frozen raw chicken</p>",
+        "<p>Tinned cream</p>"
+      ],
+      "type": "MC",
+      "marks": 1
+    },
+    {
+      "id": "58577c6203619cc9a8de800b",
+      "qno": 2,
+      "text": "What are communicable diseases? State any two examples.",
+      "mcOptions": [],
+      "type": "SA",
+      "marks": 2
+    },
+    {
+      "id": "5ad447869979b3737f1ad71a",
+      "qno": 3,
+      "text": "<p>Prakhar came back from school and ate the rice&nbsp;<span>that was kept outside on the dining table. After&nbsp;</span><span>few hours, he complained of diarrhoea and&nbsp;</span><span>abdominal pain. His mother took him to the&nbsp;</span><span>doctor who explained why this happened and&nbsp;</span><span>asked them to preserve their food properly.&nbsp;</span></p><p>(a) What must happened to Prakhar?</p><p>(b) Give the probable cause for his condition.</p><p>(c) Mention the values shown by the doctor.</p>",
+      "mcOptions": [],
+      "type": "SA",
+      "marks": 3
+    },
+    {
+      "id": "5b9b5abc410cc5712972d0e0",
+      "qno": 4,
+      "text": "<p>Sachin opened two packets of milo drink. He left&nbsp;<span>one in the refrigerator and another on the table.&nbsp;</span><span>Three days later, he got a bad smell from the&nbsp;</span><span>packet left on the table. The packet of milo drink in&nbsp;</span><span>the refrigerator did not have a bad smell.&nbsp;</span><span>Explain why:</span></p><ol><li>Milo kept in refrigerator did not smell bad?</li><li>Milo kept in outside smelled bad?</li></ol>",
+      "mcOptions": [],
+      "type": "SA",
+      "marks": 2
+    },
+    {
+      "id": "5c7e30d44be61520a2b76470",
+      "qno": 5,
+      "text": "<p>Identify the given microorganism and select the incorrect statement regarding it.</p><p><img class=\"richTextImage\" src=\"https://assessed.co.in:3050/1519412789821-Capture.JPG\" style=\"height: 169px;width: 189px;\"><br></p>",
+      "mcOptions": [
+        "<p>It reproduces by means of spores.</p>",
+        "<p>It results in the spoilage of food materials.<br/></p>",
+        "<p>It is an autotrophic fungus that causes<br/>various diseases in plants, animals<br/>and humans.<br/></p>",
+        "<p>It is a saprophyte commonly called as black bread mould.</p>"
+      ],
+      "type": "MC",
+      "marks": 1
+    },
+    {
+      "id": "5ec62537b12c65d6f83fe072",
+      "qno": 6,
+      "text": "<p>Following is the data of four species <span class=\"latexEle\" data-latex=\"\\left(S_1-S_4\\right)\">$\\left(S_1-S_4\\right)$</span>&nbsp;present (+) or absent (-) in five different habitats (P, Q, R, S and T).<br>Which species has the maximum diversity?</p><p></p><table class=\"richTextTable\"><tbody><tr><td>&nbsp;</td><td>&nbsp;P</td><td>&nbsp;Q</td><td>&nbsp;R</td><td>&nbsp;S</td><td>&nbsp;T</td></tr><tr><td>&nbsp;<span class=\"latexEle\" data-latex=\"S_1\">$S_1$</span>&nbsp;</td><td>&nbsp;-</td><td>&nbsp;-</td><td>&nbsp;-</td><td>&nbsp;+</td><td>&nbsp;+</td></tr><tr><td>&nbsp;<span class=\"latexEle\" data-latex=\"S_2\">$S_2$</span>&nbsp;</td><td>&nbsp;+</td><td>&nbsp;+</td><td>+<br></td><td>&nbsp;+</td><td>&nbsp;-</td></tr><tr><td>&nbsp;<span class=\"latexEle\" data-latex=\"S_3\">$S_3$</span>&nbsp;</td><td>&nbsp;-</td><td>&nbsp;-</td><td>&nbsp;-</td><td>&nbsp;-</td><td>&nbsp;+</td></tr><tr><td>&nbsp;<span class=\"latexEle\" data-latex=\"S_4\">$S_4$</span>&nbsp;</td><td>&nbsp;+</td><td>&nbsp;-</td><td>&nbsp;+</td><td>&nbsp;-</td><td>&nbsp;+</td></tr></tbody></table><p></p>",
+      "mcOptions": [
+        "<p><span class=\"latexEle\" data-latex=\"S_1\">$S_1$</span> <br/></p>",
+        "<p><span class=\"latexEle\" data-latex=\"S_2\">$S_2$</span> <br/></p>",
+        "<p><span class=\"latexEle\" data-latex=\"S_3\">$S_3$</span> <br/></p>",
+        "<p><span class=\"latexEle\" data-latex=\"S_4\">$S_4$</span> <br/></p>"
+      ],
+      "type": "MC",
+      "marks": 1
+    }
+  ],
+  "totalMarks": 10
+}
