@@ -1,5 +1,6 @@
 package com.ruben.funed.presentation.instruction
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -13,6 +14,8 @@ import com.ruben.funed.databinding.ActivityInstructionsBinding
 import com.ruben.funed.domain.model.ErrorRecord
 import com.ruben.funed.domain.model.StatusRecord
 import com.ruben.funed.presentation.base.BaseActivity
+import com.ruben.funed.presentation.test.TestActivity
+import com.ruben.funed.remote.model.Question
 import com.ruben.funed.remote.model.TestResponse
 import com.ruben.funed.utility.ApplicationConstants
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +28,7 @@ class InstructionsActivity : BaseActivity() {
     private lateinit var binding: ActivityInstructionsBinding
     private val instructionsViewModel: InstructionsViewModel by viewModels()
     private lateinit var countDownTimer: CountDownTimer
+    private lateinit var record: TestResponse
     private var isActive = false
     private val ok: String by lazy { getString(R.string.all_ok) }
     private val noNetwork: String by lazy { getString(R.string.all_no_network) }
@@ -52,7 +56,15 @@ class InstructionsActivity : BaseActivity() {
             instructionsViewModel.getTestDetails()
         }
         binding.enterTestButton.setOnClickListener {
-            Log.d("Ruben", "Enter test")
+            if(this::record.isInitialized) {
+                val intent = Intent(this, TestActivity::class.java)
+                val bundle = Bundle()
+                bundle.putString(ApplicationConstants.SUBJECT, this.record.subject)
+                bundle.putParcelableArrayList(ApplicationConstants.QUESTIONS, this.record.question)
+                intent.putExtras(bundle)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 
@@ -86,6 +98,7 @@ class InstructionsActivity : BaseActivity() {
 
     private fun showTestDetails(data: TestResponse) {
         stopProgress(binding.instructionsPb, this)
+        this.record = data
         binding.retryButton.visibility = View.GONE
         binding.instructionsToolbar.toolbarTitleTv.text = data.assessmentName
         binding.subjectTv.text = data.subject

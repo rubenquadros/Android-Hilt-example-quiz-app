@@ -18,7 +18,7 @@
     <ScrollView
         android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/all_0dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/middleParent"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/all_0dp"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:layout_marginTop="@dimen/all_16dp"
@@ -78,7 +78,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/marksTv"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/all_0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/all_16dp"
                     android:layout_marginEnd="@dimen/all_16dp"
@@ -93,7 +93,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/durationTv"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/all_0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/all_16dp"
                     android:layout_marginEnd="@dimen/all_16dp"
