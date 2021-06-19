@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ruben.funed">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".presentation.base.BaseApplication"
         android:allowBackup="true"
@@ -10,7 +12,9 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FunED">
-        <activity android:name=".presentation.instruction.InstructionsActivity"></activity>
+        <activity
+            android:name=".presentation.instruction.InstructionsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.SplashActivity"
             android:screenOrientation="portrait"

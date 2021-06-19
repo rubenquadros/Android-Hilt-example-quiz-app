@@ -5,4 +5,11 @@
     <string name="test_instructions">1. The test will contain both multiple choice questions as well as short answer questions.\n\n2. The test timer will start as soon as you enter the test.\n\n3. You will not be able to pause the test once you start.\n\n4. Please make sure you submit your test after you are done. In case you do not submit your test your answers will not be considered.\n\n5. In case you don\'t submit your test and the timer expires your test will be auto submitted.</string>
     <string name="enter_test">Enter Test</string>
     <string name="preparing_test">Preparing test…</string>
+    <string name="total_marks">%s Marks</string>
+    <string name="test_duration">%s mins</string>
+    <string name="all_retry">Retry</string>
+    <string name="all_no_network">Please check your internet connection and try again</string>
+    <string name="all_generic_error">Something went wrong. Please try again</string>
+    <string name="all_try_again">There seems to be an error. Please click below to try again</string>
+    <string name="all_ok">OK</string>
 </resources>
