@@ -9,7 +9,9 @@
       android:roundIcon="@mipmap/app_icon_round"
       android:supportsRtl="true"
       android:theme="@style/Theme.FunED">
-    <activity android:name=".presentation.MainActivity">
+    <activity android:name=".presentation.SplashActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.FunED.SplashTheme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 

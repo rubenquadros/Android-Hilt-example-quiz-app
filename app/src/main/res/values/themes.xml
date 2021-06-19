@@ -21,5 +21,12 @@
 
   <style name="Theme.FunED.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
+  <style name="Theme.FunED.SplashTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    <item name="android:windowFullscreen">true</item>
+    <item name="android:windowBackground">@drawable/splash</item>
+  </style>
+
 
 </resources>
