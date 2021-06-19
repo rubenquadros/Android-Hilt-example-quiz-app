@@ -7,7 +7,7 @@ import com.ruben.funed.presentation.base.BaseActivity
 import com.ruben.funed.remote.model.Question
 import com.ruben.funed.utility.ApplicationConstants
 
-class TestActivity : BaseActivity() {
+class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
 
   private lateinit var binding: ActivityTestBinding
   private lateinit var questions: ArrayList<Question>
@@ -38,5 +38,22 @@ class TestActivity : BaseActivity() {
         if(this::subject.isInitialized) subject else getString(R.string.instructions_toolbar_title),
         false
     )
+    binding.testVp.isUserInputEnabled = false
+    if (this::questions.isInitialized) {
+      val pagerAdapter = TestViewPagerAdapter(this, questions)
+      binding.testVp.adapter = pagerAdapter
+    }
+  }
+
+  override fun onPrevClicked() {
+    binding.testVp.setCurrentItem(binding.testVp.currentItem-1, true)
+  }
+
+  override fun onNextClicked() {
+    binding.testVp.setCurrentItem(binding.testVp.currentItem+1, true)
+  }
+
+  override fun onSubmit() {
+    //do nothing
   }
 }

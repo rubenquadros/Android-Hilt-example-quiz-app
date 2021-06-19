@@ -9,4 +9,6 @@ object ApplicationConstants {
     const val TIMER_INTERVAL = 1000L
     const val SUBJECT = "subject"
     const val QUESTIONS = "questions"
+    const val MC = "MC"
+    const val SA = "SA"
 }

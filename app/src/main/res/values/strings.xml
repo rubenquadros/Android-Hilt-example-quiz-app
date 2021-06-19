@@ -9,7 +9,9 @@
     <string name="test_duration">%s mins</string>
     <string name="short_answer_hint">You can either write an answer for this question or attach an image of your solution or both</string>
     <string name="answer_image_label">Please click/upload image</string>
-    <string name="all_next">Submit</string>
+    <string name="test_question_number">Q No. %s</string>
+    <string name="test_question_marks">Marks: %s</string>
+    <string name="all_next">Next</string>
     <string name="all_prev">Prev</string>
     <string name="all_subimt">Submit</string>
     <string name="all_retry">Retry</string>

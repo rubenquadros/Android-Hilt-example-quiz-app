@@ -3,7 +3,6 @@ package com.ruben.funed.presentation.instruction
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
@@ -15,7 +14,6 @@ import com.ruben.funed.domain.model.ErrorRecord
 import com.ruben.funed.domain.model.StatusRecord
 import com.ruben.funed.presentation.base.BaseActivity
 import com.ruben.funed.presentation.test.TestActivity
-import com.ruben.funed.remote.model.Question
 import com.ruben.funed.remote.model.TestResponse
 import com.ruben.funed.utility.ApplicationConstants
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +58,7 @@ class InstructionsActivity : BaseActivity() {
                 val intent = Intent(this, TestActivity::class.java)
                 val bundle = Bundle()
                 bundle.putString(ApplicationConstants.SUBJECT, this.record.subject)
-                bundle.putParcelableArrayList(ApplicationConstants.QUESTIONS, this.record.question)
+                bundle.putParcelableArrayList(ApplicationConstants.QUESTIONS, this.record.questions)
                 intent.putExtras(bundle)
                 startActivity(intent)
                 finish()
