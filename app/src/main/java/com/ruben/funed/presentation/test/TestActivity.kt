@@ -6,7 +6,9 @@ import com.ruben.funed.databinding.ActivityTestBinding
 import com.ruben.funed.presentation.base.BaseActivity
 import com.ruben.funed.remote.model.Question
 import com.ruben.funed.utility.ApplicationConstants
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
 
   private lateinit var binding: ActivityTestBinding

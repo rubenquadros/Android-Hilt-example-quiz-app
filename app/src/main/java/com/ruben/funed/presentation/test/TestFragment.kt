@@ -11,14 +11,19 @@ import com.ruben.funed.R
 import com.ruben.funed.databinding.FragmentTestBinding
 import com.ruben.funed.remote.model.Question
 import com.ruben.funed.utility.ApplicationConstants
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class TestFragment : Fragment() {
+@AndroidEntryPoint
+class TestFragment : Fragment(), OptionsAdapter.AnswerListener {
 
     private lateinit var binding: FragmentTestBinding
     private var listener: NavButtonListener? = null
     private var testData: Question? = null
     private var isFirst: Boolean = false
     private var isLast: Boolean = false
+
+    @Inject lateinit var optionsAdapter: OptionsAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,6 +57,9 @@ class TestFragment : Fragment() {
         if (ApplicationConstants.MC == testData?.type) {
             binding.optionsRv.visibility = View.VISIBLE
             binding.saParent.visibility = View.GONE
+            testData?.mcOptions?.let { optionsAdapter.setItems(it) }
+            optionsAdapter.setListener(this)
+            binding.optionsRv.adapter = optionsAdapter
         } else {
             binding.optionsRv.visibility = View.GONE
             binding.saParent.visibility = View.VISIBLE
@@ -80,6 +88,10 @@ class TestFragment : Fragment() {
                 listener?.onNextClicked()
             }
         }
+    }
+
+    override fun onAnswerSelected() {
+        TODO("Not yet implemented")
     }
 
     companion object {
