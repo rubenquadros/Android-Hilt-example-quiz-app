@@ -2,6 +2,7 @@ package com.ruben.funed.presentation.test
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ruben.funed.R
 import com.ruben.funed.databinding.FragmentTestBinding
+import com.ruben.funed.domain.model.OptionsRecord
 import com.ruben.funed.remote.model.Question
 import com.ruben.funed.utility.ApplicationConstants
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +24,8 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener {
     private var testData: Question? = null
     private var isFirst: Boolean = false
     private var isLast: Boolean = false
+    private var answer = ""
+    private var answerPosition = -1
 
     @Inject lateinit var optionsAdapter: OptionsAdapter
 
@@ -57,7 +61,13 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener {
         if (ApplicationConstants.MC == testData?.type) {
             binding.optionsRv.visibility = View.VISIBLE
             binding.saParent.visibility = View.GONE
-            testData?.mcOptions?.let { optionsAdapter.setItems(it) }
+            testData?.mcOptions?.let {
+                val isSelectedList = MutableList(it.size) {false}
+                if (answerPosition != -1) {
+                    isSelectedList[answerPosition] = true
+                }
+                optionsAdapter.setItems(OptionsRecord(it, isSelectedList))
+            }
             optionsAdapter.setListener(this)
             binding.optionsRv.adapter = optionsAdapter
         } else {
@@ -90,8 +100,10 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener {
         }
     }
 
-    override fun onAnswerSelected() {
-        TODO("Not yet implemented")
+    override fun onAnswerSelected(answer: String, position: Int) {
+        this.answer = answer
+        this.answerPosition = position
+        Log.d("Ruben", "$position $answer")
     }
 
     companion object {
