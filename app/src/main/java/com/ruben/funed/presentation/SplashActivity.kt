@@ -1,11 +1,14 @@
 package com.ruben.funed.presentation
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import com.ruben.funed.R
+import com.ruben.funed.presentation.base.BaseActivity
+import com.ruben.funed.presentation.instruction.InstructionsActivity
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    startActivity(Intent(this, InstructionsActivity::class.java))
   }
 }

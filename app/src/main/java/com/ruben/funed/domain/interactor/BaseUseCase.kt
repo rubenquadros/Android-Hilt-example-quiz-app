@@ -15,10 +15,10 @@ abstract class BaseUseCase<Request, Response> {
         request: Request,
         onResponse: (Response) -> Unit
     ) {
-        val job = scope.async {
+        val job = scope.async(dispatcher) {
             run(request)
         }
-        scope.launch {
+        scope.launch(dispatcher) {
             if (isActive) {
                 onResponse(job.await())
             }

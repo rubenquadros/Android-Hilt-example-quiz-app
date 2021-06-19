@@ -2,7 +2,7 @@
   <!-- Base application theme. -->
   <style name="Theme.FunED" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     <!-- Primary brand color. -->
-    <item name="colorPrimary">@color/yellow_500</item>
+    <item name="colorPrimary">@color/yellow_700</item>
     <item name="colorPrimaryVariant">@color/yellow_700</item>
     <item name="colorOnPrimary">@color/yellow_900</item>
     <!-- Secondary brand color. -->
@@ -28,5 +28,8 @@
     <item name="android:windowBackground">@drawable/splash</item>
   </style>
 
+  <style name="Theme.FunED.ProgressBar">
+    <item name="colorAccent">@color/yellow_900</item>
+  </style>
 
 </resources>

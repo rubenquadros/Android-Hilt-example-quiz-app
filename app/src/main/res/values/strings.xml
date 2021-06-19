@@ -1,3 +1,8 @@
 <resources>
-  <string name="app_name">FunED</string>
+    <string name="app_name">FunED</string>
+    <string name="instructions_toolbar_title">FunED fun test</string>
+    <string name="instructions_title">Important instructions</string>
+    <string name="test_instructions">1. The test will contain both multiple choice questions as well as short answer questions.\n\n2. The test timer will start as soon as you enter the test.\n\n3. You will not be able to pause the test once you start.\n\n4. Please make sure you submit your test after you are done. In case you do not submit your test your answers will not be considered.\n\n5. In case you don\'t submit your test and the timer expires your test will be auto submitted.</string>
+    <string name="enter_test">Enter Test</string>
+    <string name="preparing_test">Preparing test…</string>
 </resources>
