@@ -104,5 +104,10 @@ dependencies {
   def robolectric_version = "4.4"
   testImplementation "org.robolectric:robolectric:$robolectric_version"
 
+  def mockk_version = "1.11.0"
+  testImplementation "io.mockk:mockk:$mockk_version"
+
+  testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+
   testImplementation "androidx.room:room-testing:$room_version"
 }

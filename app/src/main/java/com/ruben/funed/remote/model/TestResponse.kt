@@ -10,4 +10,6 @@ data class TestResponse(
     val duration: Long,
     val question: List<Question>,
     val totalMarks: Long
-)
+) {
+    constructor(): this("", "", "", 0L, arrayListOf(), 0L)
+}
