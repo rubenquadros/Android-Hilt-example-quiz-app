@@ -35,6 +35,7 @@ class OptionsAdapter : BaseRecyclerViewAdapter<OptionsAdapter.ViewHolder, Option
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     holder.optionsTv.setDisplayText(items.options[position])
     if (items.isSelected[position]) {
+      this.answerPosition = position
       holder.optionsParent.setCardBackgroundColor(
           ContextCompat.getColor(holder.itemView.context, R.color.orange_200)
       )

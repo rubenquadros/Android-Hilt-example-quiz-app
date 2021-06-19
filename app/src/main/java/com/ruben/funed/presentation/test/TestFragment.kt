@@ -55,6 +55,9 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState?.containsKey(ApplicationConstants.ANSWER_POSITION) == true) {
+            this.answerPosition = savedInstanceState.getInt(ApplicationConstants.ANSWER_POSITION)
+        }
         binding.qnoTv.text = getString(R.string.test_question_number, testData?.qno.toString())
         binding.marksTv.text = getString(R.string.test_question_marks, testData?.marks.toString())
         binding.questionTv.setDisplayText(testData?.text)
@@ -98,6 +101,11 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener {
                 listener?.onNextClicked()
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(ApplicationConstants.ANSWER_POSITION, answerPosition)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onAnswerSelected(answer: String, position: Int) {

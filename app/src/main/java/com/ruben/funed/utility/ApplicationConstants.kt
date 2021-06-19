@@ -11,4 +11,5 @@ object ApplicationConstants {
     const val QUESTIONS = "questions"
     const val MC = "MC"
     const val SA = "SA"
+    const val ANSWER_POSITION = "answer_position"
 }
