@@ -12,7 +12,7 @@
     <!-- Status bar color. -->
     <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
-    <!-- Remote default app bar. -->
+    <!-- Remove default app bar. -->
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
   </style>
