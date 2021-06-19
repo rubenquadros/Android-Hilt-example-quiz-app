@@ -20,24 +20,24 @@ class RetrofitInterceptor : Interceptor {
             val builder = request.newBuilder()
             val response = chain.proceed(builder.build())
             if (response.code in HttpURLConnection.HTTP_BAD_REQUEST..ApiConstants.STATUS_CODE_499) {
-                throw RemoteException.ClientError(response.code)
+                throw RemoteException.ClientError(response.code.toString())
             } else if (response.code in HttpURLConnection.HTTP_INTERNAL_ERROR..ApiConstants.STATUS_CODE_599) {
-                throw RemoteException.ServerError(response.code)
+                throw RemoteException.ServerError(response.code.toString())
             }
             return response
         } catch (e: Exception) {
             throw when (e) {
                 is UnknownHostException -> {
-                    RemoteException.NoNetwork()
+                    RemoteException.NoNetwork(e.message.toString())
                 }
                 is SocketTimeoutException -> {
-                    RemoteException.NoNetwork()
+                    RemoteException.NoNetwork(e.message.toString())
                 }
                 is RemoteException -> {
                     e
                 }
                 else -> {
-                    IOException()
+                    RemoteException.GenericError(e.message.toString())
                 }
             }
         }
