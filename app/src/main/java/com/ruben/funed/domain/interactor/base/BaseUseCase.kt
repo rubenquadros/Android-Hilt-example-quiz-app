@@ -1,4 +1,4 @@
-package com.ruben.funed.domain.interactor
+package com.ruben.funed.domain.interactor.base
 
 import kotlinx.coroutines.*
 

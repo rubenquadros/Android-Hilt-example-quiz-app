@@ -1,5 +1,6 @@
 package com.ruben.funed.domain.interactor
 
+import com.ruben.funed.domain.interactor.base.BaseUseCase
 import com.ruben.funed.domain.model.Record
 import com.ruben.funed.domain.repository.TestRepository
 import com.ruben.funed.remote.model.TestResponse
