@@ -40,6 +40,7 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
     private var isGallery: Boolean = false
     private var isGranted: Boolean = false
     private var isNewAnswer: Boolean = false
+    private var isSubmitTest: Boolean = false
     private var answer = ""
     private var answerPosition = -1
     private lateinit var photoFile: File
@@ -53,6 +54,9 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
     private val cancel: String by lazy { getString(R.string.all_cancel) }
     private val permissionCameraDenied: String by lazy { getString(R.string.permission_camera_denied) }
     private val permissionGalleryDenied: String by lazy { getString(R.string.permission_gallery_denied) }
+    private val submit: String by lazy { getString(R.string.all_subimt) }
+    private val submitTitle: String by lazy { getString(R.string.submit_title) }
+    private val submitMessage: String by lazy { getString(R.string.submit_message) }
 
     @Inject lateinit var optionsAdapter: OptionsAdapter
 
@@ -182,7 +186,7 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
         if (isLast) {
             val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_done)
             binding.nextButton.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, drawable, null)
-            binding.nextButton.text = getString(R.string.all_subimt)
+            binding.nextButton.text = submit
         } else {
             binding.nextButton.text = getString(R.string.all_next)
         }
@@ -202,7 +206,17 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
         }
         binding.nextButton.setOnClickListener {
             if (isLast) {
-                //show confirmation
+                isSubmitTest = true
+                confirmationDialogFragment = ConfirmationDialogFragment.newInstance(
+                    submitTitle,
+                    submitMessage,
+                    submit,
+                    cancel
+                )
+                confirmationDialogFragment.show(
+                    childFragmentManager,
+                    ApplicationConstants.CONFIRMATION_DIALOG_TAG
+                )
             } else {
                 listener?.onNextClicked(
                     isNewAnswer,
@@ -301,15 +315,29 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
     }
 
     override fun onPositiveResponse() {
-        if (isGallery) {
-            launchGallery()
+        if (isSubmitTest) {
+            listener?.onSubmit(
+                isNewAnswer,
+                testData?.type.toString(),
+                answer,
+                answerImageUri.toString(),
+                testData?.id.toString()
+            )
         } else {
-            launchCamera()
+            if (isGallery) {
+                handleGalleryPermission()
+            } else {
+                handleCameraPermission()
+            }
         }
     }
 
     override fun onNegativeResponse() {
-        showPermissionMessage()
+        if (!isSubmitTest) {
+            showPermissionMessage()
+        } else {
+            isSubmitTest = false
+        }
     }
 
     private fun showPermissionMessage() {
