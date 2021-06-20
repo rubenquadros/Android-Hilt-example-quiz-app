@@ -1,5 +1,6 @@
 package com.ruben.funed.data
 
+import com.ruben.funed.cache.DatabaseManager
 import com.ruben.funed.remote.NetworkManager
 
 /**
@@ -7,4 +8,5 @@ import com.ruben.funed.remote.NetworkManager
  **/
 interface DataSource {
     fun api(): NetworkManager
+    fun database(): DatabaseManager
 }

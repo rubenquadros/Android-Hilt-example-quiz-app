@@ -19,6 +19,12 @@ android {
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     buildConfigField 'String', 'BASE_URL', "\"https://assessed-da.s3-ap-southeast-1.amazonaws.com/\""
+
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
+    }
   }
 
   buildTypes {
@@ -46,6 +52,10 @@ android {
   configurations.all {
     resolutionStrategy.force "junit:junit:4.13.2"
   }
+}
+
+kapt {
+  correctErrorTypes true
 }
 
 dependencies {

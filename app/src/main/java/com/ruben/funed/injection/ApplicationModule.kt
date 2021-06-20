@@ -1,6 +1,7 @@
 package com.ruben.funed.injection
 
 import android.content.Context
+import com.ruben.funed.cache.TestDB
 import com.ruben.funed.data.DataSource
 import com.ruben.funed.data.DataSourceImpl
 import com.ruben.funed.remote.rest.RestApi
@@ -27,7 +28,8 @@ class ApplicationModule {
     fun provideRestApi(retrofitApi: RetrofitApi): RestApi = RestApiImpl(retrofitApi)
 
     @Provides
-    fun provideDataSource(restApi: RestApi): DataSource = DataSourceImpl(restApi)
+    fun provideDataSource(restApi: RestApi, context: Context): DataSource =
+        DataSourceImpl(restApi, context)
 
     @Provides
     fun provideDispatcher() = Dispatchers.IO
