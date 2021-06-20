@@ -3,6 +3,7 @@ package com.ruben.funed.presentation.test
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,18 +11,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import androidx.core.content.FileProvider
+import com.bumptech.glide.Glide
+import com.ruben.funed.BuildConfig
 import com.ruben.funed.R
 import com.ruben.funed.databinding.FragmentTestBinding
 import com.ruben.funed.domain.model.OptionsRecord
+import com.ruben.funed.presentation.base.BaseFragment
 import com.ruben.funed.presentation.dialogs.ConfirmationDialogFragment
 import com.ruben.funed.remote.model.Question
 import com.ruben.funed.utility.ApplicationConstants
+import com.ruben.funed.utility.ApplicationUtility
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TestFragment : Fragment(), OptionsAdapter.AnswerListener,
+class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
     ConfirmationDialogFragment.ConfirmationListener {
 
     private lateinit var binding: FragmentTestBinding
@@ -34,6 +41,17 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener,
     private var isGranted: Boolean = false
     private var answer = ""
     private var answerPosition = -1
+    private lateinit var photoFile: File
+    private var photoURI: Uri? = null
+    private var answerImageUri: Uri? = null
+    private val genericError: String by lazy { getString(R.string.all_generic_error) }
+    private val permissionTitle: String by lazy { getString(R.string.permission_title) }
+    private val permissionCameraMessage: String by lazy { getString(R.string.permission_camera) }
+    private val permissionGalleryMessage: String by lazy { getString(R.string.permission_gallery) }
+    private val ok: String by lazy { getString(R.string.all_ok) }
+    private val cancel: String by lazy { getString(R.string.all_cancel) }
+    private val permissionCameraDenied: String by lazy { getString(R.string.permission_camera_denied) }
+    private val permissionGalleryDenied: String by lazy { getString(R.string.permission_gallery_denied) }
 
     @Inject lateinit var optionsAdapter: OptionsAdapter
 
@@ -46,16 +64,43 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener,
                 }
             }
             if (isGranted && !isGallery) {
-                //camera
-                Log.d("Ruben", "Granted after req camera")
+                launchCamera()
             } else if (isGranted && isGallery) {
-                //gallery
-                Log.d("Ruben", "Granted after req gallery")
+                launchGallery()
             } else {
-                //show snack
-                Log.d("Ruben", "denied permission")
+                showPermissionMessage()
             }
         }
+
+    private val takePicture =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
+            if (result) {
+                photoURI?.let {
+                    answerImageUri = it
+                    cropImage.launch(answerImageUri)
+                }
+            }
+        }
+
+    private val selectPicture =
+        registerForActivityResult(ActivityResultContracts.GetContent()) {
+            if (it != null) {
+                answerImageUri = it
+                cropImage.launch(answerImageUri)
+            }
+        }
+
+    private val cropImage = registerForActivityResult(CropImageResultContracts()) { uri ->
+        binding.answerIv.visibility = View.VISIBLE
+        if (uri != null) {
+            answerImageUri = ApplicationUtility.getResizedImage(requireContext(), uri)
+            Glide.with(requireContext()).load(answerImageUri).into(binding.answerIv)
+        } else {
+            answerImageUri?.let {
+                Glide.with(requireContext()).load(answerImageUri).into(binding.answerIv)
+            }
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -86,6 +131,12 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener,
         if (savedInstanceState?.containsKey(ApplicationConstants.ANSWER_POSITION) == true) {
             this.answerPosition = savedInstanceState.getInt(ApplicationConstants.ANSWER_POSITION)
         }
+        if (savedInstanceState?.containsKey(ApplicationConstants.ANSWER_IMAGE) == true) {
+            savedInstanceState.getString(ApplicationConstants.ANSWER_IMAGE)?.let {
+                this.answerImageUri = Uri.parse(it)
+            }
+        }
+        savedInstanceState?.clear()
         binding.qnoTv.text = getString(R.string.test_question_number, testData?.qno.toString())
         binding.marksTv.text = getString(R.string.test_question_marks, testData?.marks.toString())
         binding.questionTv.setDisplayText(testData?.text)
@@ -104,6 +155,10 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener,
         } else {
             binding.optionsRv.visibility = View.GONE
             binding.saParent.visibility = View.VISIBLE
+            answerImageUri?.let {
+                binding.answerIv.visibility = View.VISIBLE
+                Glide.with(requireContext()).load(it).into(binding.answerIv)
+            }
         }
         if (isFirst) {
             binding.prevButton.isEnabled = false
@@ -146,16 +201,14 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener,
             if (shouldShowRequestPermissionRationale(
                     Manifest.permission.CAMERA) || shouldShowRequestPermissionRationale(
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                Log.d("Ruben", "rationale camera")
                 confirmationDialogFragment = ConfirmationDialogFragment.newInstance(
-                    getString(R.string.permission_title),
-                    getString(R.string.permission_camera),
-                    getString(R.string.all_ok),
-                    getString(R.string.all_cancel)
+                    permissionTitle,
+                    permissionCameraMessage,
+                    ok,
+                    cancel
                 )
                 confirmationDialogFragment.show(childFragmentManager, ApplicationConstants.CONFIRMATION_DIALOG_TAG)
             } else {
-                Log.d("Ruben", "Req permission camera")
                 requestPermission.launch(
                     arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE))
             }
@@ -169,16 +222,14 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener,
         isGranted = true
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                Log.d("Ruben", "rationale gallery")
                 confirmationDialogFragment = ConfirmationDialogFragment.newInstance(
-                    getString(R.string.permission_title),
-                    getString(R.string.permission_gallery),
-                    getString(R.string.all_ok),
-                    getString(R.string.all_cancel)
+                    permissionTitle,
+                    permissionGalleryMessage,
+                    ok,
+                    cancel
                 )
                 confirmationDialogFragment.show(childFragmentManager, ApplicationConstants.CONFIRMATION_DIALOG_TAG)
             } else {
-                Log.d("Ruben", "Req permission gallery")
                 requestPermission.launch(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE))
             }
         } else {
@@ -187,15 +238,28 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener,
     }
 
     private fun launchCamera() {
-        Log.d("Ruben", "launch camera")
+        try {
+            photoFile = ApplicationUtility.createImageFile(requireContext())
+        } catch (ex: IOException) {
+            showSnack(genericError, binding.parent, ok)
+            return
+        }
+        photoURI =
+            FileProvider.getUriForFile(
+                requireContext(),
+                BuildConfig.APPLICATION_ID + ApplicationConstants.PROVIDER,
+                photoFile
+            )
+        takePicture.launch(photoURI)
     }
 
     private fun launchGallery() {
-        Log.d("Ruben", "launch gallery")
+        selectPicture.launch(ApplicationConstants.PICK_IMAGES)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(ApplicationConstants.ANSWER_POSITION, answerPosition)
+        outState.putString(ApplicationConstants.ANSWER_IMAGE, answerImageUri.toString())
         super.onSaveInstanceState(outState)
     }
 
@@ -221,8 +285,16 @@ class TestFragment : Fragment(), OptionsAdapter.AnswerListener,
     }
 
     override fun onNegativeResponse() {
-        //show snack
-        Log.d("Ruben", "cancel from dialog")
+        showPermissionMessage()
+    }
+
+    private fun showPermissionMessage() {
+        val message = if (isGallery) {
+            permissionGalleryDenied
+        } else {
+            permissionCameraDenied
+        }
+        showSnack(message, binding.parent, ok)
     }
 
     companion object {

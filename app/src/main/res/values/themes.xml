@@ -32,4 +32,9 @@
     <item name="colorAccent">@color/yellow_900</item>
   </style>
 
+  <style name="Theme.FunED.RoundCornerImageView" parent="">
+    <item name="cornerSize">20%</item>
+  </style>
+
+
 </resources>

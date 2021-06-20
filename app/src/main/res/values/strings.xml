@@ -14,6 +14,8 @@
   <string name="permission_title">App Permissions</string>
   <string name="permission_camera">Please grant the permissions to your camera. You will not be able to capture your answer without it</string>
   <string name="permission_gallery">Please grant the permissions to your gallery. You will not be able to select the picture of your answer without it</string>
+  <string name="permission_camera_denied">You will not be able to use camera to capture your answers. You can always go to settings and grant this permission</string>
+  <string name="permission_gallery_denied">You will not be able to upload picture of your answer from your gallery. You can always go to settings and grant this permission</string>
   <string name="all_next">Next</string>
   <string name="all_prev">Prev</string>
   <string name="all_subimt">Submit</string>
