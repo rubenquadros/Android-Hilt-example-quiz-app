@@ -7,9 +7,11 @@ import androidx.room.Entity
  * Created by ruben.quadros on 20/06/21.
  **/
 @Entity
-data class UpdateAnswerImage(
+data class UpdateMcqAnswer(
     @ColumnInfo(name = "question_id")
     val id: String,
-    @ColumnInfo(name = "answer_image")
-    val answerImage: String
+    @ColumnInfo(name = "answer")
+    val answer: String,
+    @ColumnInfo(name = "status")
+    val status: String
 )

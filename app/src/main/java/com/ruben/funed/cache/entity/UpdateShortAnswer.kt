@@ -7,11 +7,13 @@ import androidx.room.Entity
  * Created by ruben.quadros on 20/06/21.
  **/
 @Entity
-data class UpdateCompleteAnswer(
+data class UpdateShortAnswer(
     @ColumnInfo(name = "question_id")
     val id: String,
     @ColumnInfo(name = "answer")
     val answer: String,
     @ColumnInfo(name = "answer_image")
-    val answerImage: String
+    val answerImage: String,
+    @ColumnInfo(name = "status")
+    val status: String
 )

@@ -2,9 +2,8 @@ package com.ruben.funed.cache.dao
 
 import androidx.room.*
 import com.ruben.funed.cache.entity.TestEntity
-import com.ruben.funed.cache.entity.UpdateAnswer
-import com.ruben.funed.cache.entity.UpdateAnswerImage
-import com.ruben.funed.cache.entity.UpdateCompleteAnswer
+import com.ruben.funed.cache.entity.UpdateMcqAnswer
+import com.ruben.funed.cache.entity.UpdateShortAnswer
 
 /**
  * Created by ruben.quadros on 20/06/21.
@@ -25,13 +24,10 @@ abstract class TestDao {
     abstract suspend fun insert(data: List<TestEntity>)
 
     @Update(entity = TestEntity::class)
-    abstract suspend fun updateAnswerText(updateAnswer: UpdateAnswer)
+    abstract suspend fun updateMcqAnswer(updateAnswer: UpdateMcqAnswer)
 
     @Update(entity = TestEntity::class)
-    abstract suspend fun updateAnswerImage(updateAnswerImage: UpdateAnswerImage)
-
-    @Update(entity = TestEntity::class)
-    abstract suspend fun updateCompleteAnswer(updateCompleteAnswer: UpdateCompleteAnswer)
+    abstract suspend fun updateShortAnswer(updateShortAnswer: UpdateShortAnswer)
 
     @Query("SELECT * FROM test_data")
     abstract suspend fun getTestData(): List<TestEntity>

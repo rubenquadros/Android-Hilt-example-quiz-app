@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.widget.doOnTextChanged
 import com.bumptech.glide.Glide
 import com.ruben.funed.BuildConfig
 import com.ruben.funed.R
@@ -39,6 +39,7 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
     private var isLast: Boolean = false
     private var isGallery: Boolean = false
     private var isGranted: Boolean = false
+    private var isNewAnswer: Boolean = false
     private var answer = ""
     private var answerPosition = -1
     private lateinit var photoFile: File
@@ -131,9 +132,16 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
         if (savedInstanceState?.containsKey(ApplicationConstants.ANSWER_POSITION) == true) {
             this.answerPosition = savedInstanceState.getInt(ApplicationConstants.ANSWER_POSITION)
         }
+        if (savedInstanceState?.containsKey(ApplicationConstants.ANSWER_TEXT) == true) {
+            savedInstanceState.getString(ApplicationConstants.ANSWER_TEXT)?.let {
+                this.answer = it
+            }
+        }
         if (savedInstanceState?.containsKey(ApplicationConstants.ANSWER_IMAGE) == true) {
             savedInstanceState.getString(ApplicationConstants.ANSWER_IMAGE)?.let {
-                this.answerImageUri = Uri.parse(it)
+                if (it != ApplicationConstants.NULL_STRING) {
+                    this.answerImageUri = Uri.parse(it)
+                }
             }
         }
         savedInstanceState?.clear()
@@ -155,6 +163,10 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
         } else {
             binding.optionsRv.visibility = View.GONE
             binding.saParent.visibility = View.VISIBLE
+            binding.shortAnswerEt.doOnTextChanged { text, _, _, _ ->
+                isNewAnswer = true
+                this.answer = text.toString()
+            }
             answerImageUri?.let {
                 binding.answerIv.visibility = View.VISIBLE
                 Glide.with(requireContext()).load(it).into(binding.answerIv)
@@ -181,13 +193,24 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
             handleGalleryPermission()
         }
         binding.prevButton.setOnClickListener {
-            listener?.onPrevClicked()
+            listener?.onPrevClicked(
+                isNewAnswer,
+                testData?.type.toString(),
+                answer,
+                answerImageUri.toString(),
+                testData?.id.toString())
         }
         binding.nextButton.setOnClickListener {
             if (isLast) {
                 //show confirmation
             } else {
-                listener?.onNextClicked()
+                listener?.onNextClicked(
+                    isNewAnswer,
+                    testData?.type.toString(),
+                    answer,
+                    answerImageUri.toString(),
+                    testData?.id.toString()
+                )
             }
         }
     }
@@ -259,6 +282,7 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(ApplicationConstants.ANSWER_POSITION, answerPosition)
+        outState.putString(ApplicationConstants.ANSWER_TEXT, answer)
         outState.putString(ApplicationConstants.ANSWER_IMAGE, answerImageUri.toString())
         super.onSaveInstanceState(outState)
     }
@@ -271,9 +295,9 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
     }
 
     override fun onAnswerSelected(answer: String, position: Int) {
+        this.isNewAnswer = true
         this.answer = answer
         this.answerPosition = position
-        Log.d("Ruben", "$position $answer")
     }
 
     override fun onPositiveResponse() {
@@ -314,8 +338,28 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
     }
 
     interface NavButtonListener {
-        fun onPrevClicked()
-        fun onNextClicked()
-        fun onSubmit()
+        fun onPrevClicked(
+            isNewAnswer: Boolean,
+            type: String,
+            answer: String,
+            answerImage: String,
+            id: String
+        )
+
+        fun onNextClicked(
+            isNewAnswer: Boolean,
+            type: String,
+            answer: String,
+            answerImage: String,
+            id: String
+        )
+
+        fun onSubmit(
+            isNewAnswer: Boolean,
+            type: String,
+            answer: String,
+            answerImage: String,
+            id: String
+        )
     }
 }

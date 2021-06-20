@@ -3,6 +3,7 @@ package com.ruben.funed.presentation.test
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.ruben.funed.R
 import com.ruben.funed.databinding.ActivityTestBinding
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit
 class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
 
   private lateinit var binding: ActivityTestBinding
+  private val testViewModel: TestViewModel by viewModels()
   private lateinit var questions: ArrayList<Question>
   private lateinit var subject: String
   private var duration: Long = 0
@@ -82,15 +84,47 @@ class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
     }.start()
   }
 
-  override fun onPrevClicked() {
+  override fun onPrevClicked(
+    isNewAnswer: Boolean,
+    type: String,
+    answer: String,
+    answerImage: String,
+    id: String
+  ) {
+    if (isNewAnswer) {
+      updateAnswers(type, answer, answerImage, id)
+    }
     binding.testVp.setCurrentItem(binding.testVp.currentItem - 1, true)
   }
 
-  override fun onNextClicked() {
+  override fun onNextClicked(
+    isNewAnswer: Boolean,
+    type: String,
+    answer: String,
+    answerImage: String,
+    id: String
+  ) {
+    if (isNewAnswer) {
+      updateAnswers(type, answer, answerImage, id)
+    }
     binding.testVp.setCurrentItem(binding.testVp.currentItem + 1, true)
   }
 
-  override fun onSubmit() {
+  private fun updateAnswers(type: String, answer: String, answerImage: String, id: String) {
+    if (type == ApplicationConstants.MC) {
+      testViewModel.updateMcqAnswer(id, answer)
+    } else {
+      testViewModel.updateShortAnswer(id, answer, answerImage)
+    }
+  }
+
+  override fun onSubmit(
+    isNewAnswer: Boolean,
+    type: String,
+    answer: String,
+    answerImage: String,
+    id: String
+  ) {
     //do nothing
   }
 }

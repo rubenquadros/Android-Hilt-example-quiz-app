@@ -24,5 +24,7 @@ data class TestEntity(
     @ColumnInfo(name = "answer")
     val answer: String = DBConstants.DEFAULT_ANSWER,
     @ColumnInfo(name = "answer_image")
-    val answerImage: String = DBConstants.DEFAULT_IMAGE
+    val answerImage: String = DBConstants.DEFAULT_IMAGE,
+    @ColumnInfo(name = "status")
+    val status: String = DBConstants.DEFAULT_STATUS
 )

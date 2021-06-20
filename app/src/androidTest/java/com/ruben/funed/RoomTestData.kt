@@ -1,9 +1,8 @@
 package com.ruben.funed
 
 import com.ruben.funed.cache.entity.TestEntity
-import com.ruben.funed.cache.entity.UpdateAnswer
-import com.ruben.funed.cache.entity.UpdateAnswerImage
-import com.ruben.funed.cache.entity.UpdateCompleteAnswer
+import com.ruben.funed.cache.entity.UpdateMcqAnswer
+import com.ruben.funed.cache.entity.UpdateShortAnswer
 
 /**
  * Created by ruben.quadros on 20/06/21.
@@ -11,23 +10,23 @@ import com.ruben.funed.cache.entity.UpdateCompleteAnswer
 object RoomTestData {
     val DEFAULT_TEST_DATA = getDefaultTestRoomData()
     val NEW_TEST_DATA = getNewTestRoomData()
+    const val UPDATED_STATUS = "Attempted"
     const val UPDATED_ANSWER_TEXT = "Frozen raw chicken"
-    val UPDATE_ANSWER_TEXT = UpdateAnswer(
-        "5828310103619c7514afb9f1",
-        UPDATED_ANSWER_TEXT
-    )
-    const val UPDATED_ANSWER_IMAGE = "file:///usr/0/data/myPicture.jpg"
-    val UPDATE_ANSWER_IMAGE = UpdateAnswerImage(
-        "5828310103619c7514afb9f1",
-        UPDATED_ANSWER_IMAGE
-    )
-    val UPDATE_COMPLETE_ANSWER = UpdateCompleteAnswer(
+    val UPDATE_ANSWER_TEXT = UpdateMcqAnswer(
         "5828310103619c7514afb9f1",
         UPDATED_ANSWER_TEXT,
-        UPDATED_ANSWER_IMAGE
+        UPDATED_STATUS
     )
-    const val DEFAULT_ANSWER = "Not Attempted"
-    const val DEFAULT_ANSWER_IMAGE = "NA"
+    const val UPDATED_ANSWER_IMAGE = "file:///usr/0/data/myPicture.jpg"
+    val UPDATE_COMPLETE_ANSWER = UpdateShortAnswer(
+        "5828310103619c7514afb9f1",
+        UPDATED_ANSWER_TEXT,
+        UPDATED_ANSWER_IMAGE,
+        UPDATED_STATUS
+    )
+    const val DEFAULT_ANSWER = ""
+    const val DEFAULT_ANSWER_IMAGE = ""
+    const val DEFAULT_STATUS = "Not Attempted"
 
     private fun getDefaultTestRoomData(): List<TestEntity> {
         val testData: ArrayList<TestEntity> = arrayListOf()

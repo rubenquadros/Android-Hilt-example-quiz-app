@@ -6,6 +6,8 @@ package com.ruben.funed.cache
 object DBConstants {
     const val NAME = "test.db"
     const val VERSION = 1
-    const val DEFAULT_ANSWER = "Not Attempted"
-    const val DEFAULT_IMAGE = "NA"
+    const val DEFAULT_ANSWER = ""
+    const val DEFAULT_IMAGE = ""
+    const val DEFAULT_STATUS = "Not Attempted"
+    const val UPDATED_STATUS = "Attempted"
 }

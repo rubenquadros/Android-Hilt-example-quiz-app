@@ -14,6 +14,7 @@ object ApplicationConstants {
     const val MC = "MC"
     const val SA = "SA"
     const val ANSWER_POSITION = "answer_position"
+    const val ANSWER_TEXT = "answer_text"
     const val ANSWER_IMAGE = "answer_image"
     const val CONFIRMATION_DIALOG_TAG = "confirmation_dialog"
     const val PROVIDER = ".provider"
@@ -23,6 +24,7 @@ object ApplicationConstants {
     const val IMAGE_SUFFIX = "_"
     const val JPG_SUFFIX = ".jpg"
     const val DATE_FORMAT = "yyyyMMdd_HHmmss"
+    const val NULL_STRING = "null"
     const val IMAGE_BYTE_COUNT = 1000 * 1000
     const val IMAGE_HEIGHT = 1000
     const val IMAGE_WIDTH = 1000

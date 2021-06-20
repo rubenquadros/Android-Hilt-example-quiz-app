@@ -51,6 +51,7 @@ class DaoTest {
         val result = dao.getTestData()
         Assert.assertEquals(RoomTestData.DEFAULT_ANSWER, result[0].answer)
         Assert.assertEquals(RoomTestData.DEFAULT_ANSWER_IMAGE, result[0].answerImage)
+        Assert.assertEquals(RoomTestData.DEFAULT_STATUS, result[0].status)
     }
 
     @Test
@@ -78,19 +79,10 @@ class DaoTest {
         dao.insert(RoomTestData.DEFAULT_TEST_DATA)
         val result = dao.getTestData()
         Assert.assertEquals(RoomTestData.DEFAULT_ANSWER, result[0].answer)
-        dao.updateAnswerText(RoomTestData.UPDATE_ANSWER_TEXT)
+        dao.updateMcqAnswer(RoomTestData.UPDATE_ANSWER_TEXT)
         val newResult = dao.getTestData()
         Assert.assertEquals(RoomTestData.UPDATED_ANSWER_TEXT, newResult[0].answer)
-    }
-
-    @Test
-    fun should_be_able_to_successfully_update_answer_image() = runBlocking {
-        dao.insert(RoomTestData.DEFAULT_TEST_DATA)
-        val result = dao.getTestData()
-        Assert.assertEquals(RoomTestData.DEFAULT_ANSWER_IMAGE, result[0].answerImage)
-        dao.updateAnswerImage(RoomTestData.UPDATE_ANSWER_IMAGE)
-        val newResult = dao.getTestData()
-        Assert.assertEquals(RoomTestData.UPDATED_ANSWER_IMAGE, newResult[0].answerImage)
+        Assert.assertEquals(RoomTestData.UPDATED_STATUS, newResult[0].status)
     }
 
     @Test
@@ -99,10 +91,11 @@ class DaoTest {
         val result = dao.getTestData()
         Assert.assertEquals(RoomTestData.DEFAULT_ANSWER, result[0].answer)
         Assert.assertEquals(RoomTestData.DEFAULT_ANSWER_IMAGE, result[0].answerImage)
-        dao.updateCompleteAnswer(RoomTestData.UPDATE_COMPLETE_ANSWER)
+        dao.updateShortAnswer(RoomTestData.UPDATE_COMPLETE_ANSWER)
         val newResult = dao.getTestData()
         Assert.assertEquals(RoomTestData.UPDATED_ANSWER_TEXT, newResult[0].answer)
         Assert.assertEquals(RoomTestData.UPDATED_ANSWER_IMAGE, newResult[0].answerImage)
+        Assert.assertEquals(RoomTestData.UPDATED_STATUS, newResult[0].status)
     }
     
     @After

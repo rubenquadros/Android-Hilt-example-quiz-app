@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
  **/
 abstract class UseCase<Request> {
 
-    abstract fun run(request: Request)
+    abstract suspend fun run(request: Request)
 
     fun invoke(
         scope: CoroutineScope,

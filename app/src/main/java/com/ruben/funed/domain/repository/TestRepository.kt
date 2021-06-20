@@ -8,4 +8,6 @@ import com.ruben.funed.remote.model.TestResponse
  **/
 interface TestRepository {
     suspend fun getTest(): Record<TestResponse>
+    suspend fun updateMcqAnswer(id: String, answer: String)
+    suspend fun updateShortAnswer(id: String, answer: String, image: String)
 }

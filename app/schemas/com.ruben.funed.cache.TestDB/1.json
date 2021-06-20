@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a0cabb1b484bd6336725c4979a57811d",
+    "identityHash": "28a193ee11dfac1993a6e1f234a286dd",
     "entities": [
       {
         "tableName": "test_data",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`question_id` TEXT NOT NULL, `question_number` INTEGER NOT NULL, `marks` INTEGER NOT NULL, `question_type` TEXT NOT NULL, `question` TEXT NOT NULL, `answer` TEXT NOT NULL, `answer_image` TEXT NOT NULL, PRIMARY KEY(`question_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`question_id` TEXT NOT NULL, `question_number` INTEGER NOT NULL, `marks` INTEGER NOT NULL, `question_type` TEXT NOT NULL, `question` TEXT NOT NULL, `answer` TEXT NOT NULL, `answer_image` TEXT NOT NULL, `status` TEXT NOT NULL, PRIMARY KEY(`question_id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -49,6 +49,12 @@
             "columnName": "answer_image",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -64,7 +70,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a0cabb1b484bd6336725c4979a57811d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '28a193ee11dfac1993a6e1f234a286dd')"
     ]
   }
 }

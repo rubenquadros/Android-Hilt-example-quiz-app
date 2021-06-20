@@ -1,5 +1,8 @@
 package com.ruben.funed.data.repository
 
+import com.ruben.funed.cache.DBConstants
+import com.ruben.funed.cache.entity.UpdateMcqAnswer
+import com.ruben.funed.cache.entity.UpdateShortAnswer
 import com.ruben.funed.data.DataSource
 import com.ruben.funed.data.mapper.DBMapper
 import com.ruben.funed.data.mapper.ErrorMapper
@@ -29,5 +32,13 @@ class TestRepositoryImpl @Inject constructor(private val dataSource: DataSource)
         } catch (e: RemoteException) {
             errorMapper.mapError(e)
         }
+    }
+
+    override suspend fun updateMcqAnswer(id: String, answer: String) {
+        dataSource.database().testDao().updateMcqAnswer(UpdateMcqAnswer(id, answer, DBConstants.UPDATED_STATUS))
+    }
+
+    override suspend fun updateShortAnswer(id: String, answer: String, image: String) {
+        dataSource.database().testDao().updateShortAnswer(UpdateShortAnswer(id, answer, image, DBConstants.UPDATED_STATUS))
     }
 }
