@@ -14,4 +14,5 @@ object ApplicationConstants {
     const val MC = "MC"
     const val SA = "SA"
     const val ANSWER_POSITION = "answer_position"
+    const val CONFIRMATION_DIALOG_TAG = "confirmation_dialog"
 }
