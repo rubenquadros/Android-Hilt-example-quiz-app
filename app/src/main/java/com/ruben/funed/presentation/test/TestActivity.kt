@@ -1,5 +1,6 @@
 package com.ruben.funed.presentation.test
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -8,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.ruben.funed.R
 import com.ruben.funed.databinding.ActivityTestBinding
 import com.ruben.funed.presentation.base.BaseActivity
+import com.ruben.funed.presentation.submission.SubmissionActivity
 import com.ruben.funed.remote.model.Question
 import com.ruben.funed.utility.ApplicationConstants
 import dagger.hilt.android.AndroidEntryPoint
@@ -110,14 +112,6 @@ class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
     binding.testVp.setCurrentItem(binding.testVp.currentItem + 1, true)
   }
 
-  private fun updateAnswers(type: String, answer: String, answerImage: String, id: String) {
-    if (type == ApplicationConstants.MC) {
-      testViewModel.updateMcqAnswer(id, answer)
-    } else {
-      testViewModel.updateShortAnswer(id, answer, answerImage)
-    }
-  }
-
   override fun onSubmit(
     isNewAnswer: Boolean,
     type: String,
@@ -125,6 +119,18 @@ class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
     answerImage: String,
     id: String
   ) {
-    //do nothing
+    if (isNewAnswer) {
+      updateAnswers(type, answer, answerImage, id)
+    }
+    startActivity(Intent(this, SubmissionActivity::class.java))
+    finish()
+  }
+
+  private fun updateAnswers(type: String, answer: String, answerImage: String, id: String) {
+    if (type == ApplicationConstants.MC) {
+      testViewModel.updateMcqAnswer(id, answer)
+    } else {
+      testViewModel.updateShortAnswer(id, answer, answerImage)
+    }
   }
 }
