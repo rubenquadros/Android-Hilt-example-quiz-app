@@ -17,6 +17,7 @@ object ApplicationConstants {
     const val ANSWER_TEXT = "answer_text"
     const val ANSWER_IMAGE = "answer_image"
     const val CONFIRMATION_DIALOG_TAG = "confirmation_dialog"
+    const val INFORMATION_DIALOG_TAG = "information_dialog"
     const val PROVIDER = ".provider"
     const val PICK_IMAGES = "image/*"
     const val RESIZED_IMAGE = "ANSWER_IMG"

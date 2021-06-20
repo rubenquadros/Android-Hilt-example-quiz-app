@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.ruben.funed.R
 import com.ruben.funed.databinding.ActivityTestBinding
 import com.ruben.funed.presentation.base.BaseActivity
+import com.ruben.funed.presentation.dialogs.InformationDialogFragment
 import com.ruben.funed.presentation.submission.SubmissionActivity
 import com.ruben.funed.remote.model.Question
 import com.ruben.funed.utility.ApplicationConstants
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
+class TestActivity : BaseActivity(), TestFragment.NavButtonListener, InformationDialogFragment.SubmitListener {
 
   private lateinit var binding: ActivityTestBinding
   private val testViewModel: TestViewModel by viewModels()
@@ -24,6 +25,9 @@ class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
   private lateinit var subject: String
   private var duration: Long = 0
   private lateinit var countDownTimer: CountDownTimer
+  private lateinit var informationDialogFragment: InformationDialogFragment
+  private val ok: String by lazy { getString(R.string.all_ok) }
+  private val submitMessage: String by lazy { getString(R.string.time_up_message) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -80,7 +84,8 @@ class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
       }
 
       override fun onFinish() {
-        //stop test
+        informationDialogFragment = InformationDialogFragment.newInstance(submitMessage, ok)
+        informationDialogFragment.show(supportFragmentManager, ApplicationConstants.INFORMATION_DIALOG_TAG)
       }
 
     }.start()
@@ -122,8 +127,7 @@ class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
     if (isNewAnswer) {
       updateAnswers(type, answer, answerImage, id)
     }
-    startActivity(Intent(this, SubmissionActivity::class.java))
-    finish()
+    navigateToSubmissionScreen()
   }
 
   private fun updateAnswers(type: String, answer: String, answerImage: String, id: String) {
@@ -132,5 +136,14 @@ class TestActivity : BaseActivity(), TestFragment.NavButtonListener {
     } else {
       testViewModel.updateShortAnswer(id, answer, answerImage)
     }
+  }
+
+  override fun onSubmit() {
+    navigateToSubmissionScreen()
+  }
+
+  private fun navigateToSubmissionScreen() {
+    startActivity(Intent(this, SubmissionActivity::class.java))
+    finish()
   }
 }
