@@ -1,5 +1,6 @@
 package com.ruben.funed.repository.fakeimplementation
 
+import com.ruben.funed.cache.entity.TestEntity
 import com.ruben.funed.remote.model.Question
 
 /**
@@ -41,5 +42,27 @@ object RepoTestConstants {
             "SA",
             3
         ),
+    )
+    val DATABASE_DATA = arrayListOf<TestEntity>(
+        TestEntity(
+            "5828310103619c7514afb9f1",
+            1,
+            1,
+            "MC",
+            "<p>Which one of these foods is likely to contain the most bacteria?</p>",
+            "<p>Frozen raw chicken</p>",
+            "",
+            "Attempted"
+        ),
+        TestEntity(
+            "58577c6203619cc9a8de800b",
+            2,
+            2,
+            "SA",
+            "What are communicable diseases? State any two examples.",
+            "",
+            "",
+            "Not Attempted"
+        )
     )
 }

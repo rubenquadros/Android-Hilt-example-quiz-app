@@ -33,4 +33,13 @@ class RepositoryTest {
         Assert.assertTrue(result.data == null)
         Assert.assertTrue(result.error == ErrorRecord.NoNetwork)
     }
+
+    @Test
+    fun `should get database entity from database`() = runBlocking {
+        val repository: TestRepository = TestRepositoryImpl(FakeFailDataSource())
+        val result = repository.getAnswers()
+        Assert.assertTrue(result.status == StatusRecord.SUCCESS)
+        Assert.assertTrue(result.error == null)
+        Assert.assertTrue(result.data?.size == RepoTestConstants.DATABASE_DATA.size)
+    }
 }
