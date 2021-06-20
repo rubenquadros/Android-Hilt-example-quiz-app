@@ -106,7 +106,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/all_18sp"
                     android:fontFamily="@font/opensans_regular"
-                    android:maxLength="500"
+                    android:maxLength="400"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>

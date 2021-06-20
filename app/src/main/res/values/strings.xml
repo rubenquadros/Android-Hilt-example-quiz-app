@@ -19,6 +19,8 @@
     <string name="submit_title">Submit?</string>
     <string name="submit_message">Your answers will be submitted. Are you sure you want to proceed?</string>
     <string name="time_up_message">Time up! Your test has been auto-submitted. You will be re-directed to summary page</string>
+    <string name="submission_title">Your answers</string>
+    <string name="submission_answer">Your answer:</string>
     <string name="all_next">Next</string>
     <string name="all_prev">Prev</string>
     <string name="all_subimt">Submit</string>

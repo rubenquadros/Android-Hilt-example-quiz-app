@@ -1,6 +1,7 @@
 package com.ruben.funed.data.repository
 
 import com.ruben.funed.cache.DBConstants
+import com.ruben.funed.cache.entity.TestEntity
 import com.ruben.funed.cache.entity.UpdateMcqAnswer
 import com.ruben.funed.cache.entity.UpdateShortAnswer
 import com.ruben.funed.data.DataSource
@@ -40,5 +41,11 @@ class TestRepositoryImpl @Inject constructor(private val dataSource: DataSource)
 
     override suspend fun updateShortAnswer(id: String, answer: String, image: String) {
         dataSource.database().testDao().updateShortAnswer(UpdateShortAnswer(id, answer, image, DBConstants.UPDATED_STATUS))
+    }
+
+    override suspend fun getAnswers(): Record<List<TestEntity>> {
+        return dataSource.database().testDao().getTestData().run {
+            dbMapper.mapTestEntityToRecord(this)
+        }
     }
 }

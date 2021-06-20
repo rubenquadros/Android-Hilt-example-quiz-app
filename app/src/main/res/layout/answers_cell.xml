@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="@dimen/all_8dp"
+    app:cardElevation="@dimen/all_5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/all_16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/centerVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/qnoTv"
+                android:layout_width="@dimen/all_0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/all_16dp"
+                android:fontFamily="@font/opensans_regular"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:textSize="@dimen/all_16sp"
+                app:layout_constraintEnd_toStartOf="@+id/centerVertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Q No. 1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/marksTv"
+                android:layout_width="@dimen/all_0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/all_16dp"
+                android:fontFamily="@font/opensans_regular"
+                android:gravity="end"
+                android:textColor="@color/black"
+                android:textSize="@dimen/all_16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/centerVertical"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Marks: 1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <katex.hourglass.in.mathlib.MathView
+            android:id="@+id/questionTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/all_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topParent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/answerLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/all_16sp"
+            android:fontFamily="@font/opensans_regular"
+            android:text="@string/submission_answer"
+            android:layout_margin="@dimen/all_16dp"
+            app:layout_constraintTop_toBottomOf="@+id/questionTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <katex.hourglass.in.mathlib.MathView
+            android:id="@+id/answerTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/all_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/answerLabel" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/answerIv"
+            android:layout_width="@dimen/all_200dp"
+            android:layout_height="@dimen/all_200dp"
+            android:layout_margin="@dimen/all_16dp"
+            app:layout_constraintTop_toBottomOf="@+id/answerTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

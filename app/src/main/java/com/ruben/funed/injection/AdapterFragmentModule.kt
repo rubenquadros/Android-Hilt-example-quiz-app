@@ -11,7 +11,7 @@ import dagger.hilt.android.components.FragmentComponent
  **/
 @Module
 @InstallIn(FragmentComponent::class)
-class AdapterModule {
+class AdapterFragmentModule {
 
   @Provides
   fun provideOptionsAdapter() = OptionsAdapter()
