@@ -58,6 +58,7 @@ class InstructionsActivity : BaseActivity() {
                 val intent = Intent(this, TestActivity::class.java)
                 val bundle = Bundle()
                 bundle.putString(ApplicationConstants.SUBJECT, this.record.subject)
+                bundle.putLong(ApplicationConstants.DURATION, this.record.duration)
                 bundle.putParcelableArrayList(ApplicationConstants.QUESTIONS, this.record.questions)
                 intent.putExtras(bundle)
                 startActivity(intent)
