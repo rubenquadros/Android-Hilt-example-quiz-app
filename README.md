@@ -37,3 +37,6 @@ For networking
 - [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver)
 For api testing
 
+- [Mockk](https://mockk.io/ANDROID.html)
+For mocking dependencies during testing
+
