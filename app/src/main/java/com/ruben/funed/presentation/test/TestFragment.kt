@@ -31,7 +31,8 @@ import javax.inject.Inject
 class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
     ConfirmationDialogFragment.ConfirmationListener {
 
-    private lateinit var binding: FragmentTestBinding
+    private var _binding: FragmentTestBinding? = null
+    private val binding get() = _binding!!
     private lateinit var confirmationDialogFragment: ConfirmationDialogFragment
     private var listener: NavButtonListener? = null
     private var testData: Question? = null
@@ -127,7 +128,7 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentTestBinding.inflate(inflater, container, false)
+        _binding = FragmentTestBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -347,6 +348,11 @@ class TestFragment : BaseFragment(), OptionsAdapter.AnswerListener,
             permissionCameraDenied
         }
         showSnack(message, binding.parent, ok)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

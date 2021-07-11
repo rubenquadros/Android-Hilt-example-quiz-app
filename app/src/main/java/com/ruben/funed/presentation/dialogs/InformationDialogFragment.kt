@@ -10,7 +10,8 @@ import com.ruben.funed.databinding.FragmentInformationDialogBinding
 
 class InformationDialogFragment : DialogFragment() {
 
-    private lateinit var binding: FragmentInformationDialogBinding
+    private var _binding: FragmentInformationDialogBinding? = null
+    private val binding get() = _binding!!
     private var listener: SubmitListener? = null
     private var message: String? = null
     private var button: String? = null
@@ -34,7 +35,7 @@ class InformationDialogFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentInformationDialogBinding.inflate(inflater, container, false)
+        _binding = FragmentInformationDialogBinding.inflate(inflater, container, false)
         isCancelable = false
         return binding.root
     }
@@ -47,6 +48,11 @@ class InformationDialogFragment : DialogFragment() {
             listener?.onSubmit()
             dismiss()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

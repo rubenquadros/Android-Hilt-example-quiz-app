@@ -10,7 +10,8 @@ import com.ruben.funed.databinding.FragmentConfirmationDialogBinding
 
 class ConfirmationDialogFragment : DialogFragment() {
 
-    private lateinit var binding: FragmentConfirmationDialogBinding
+    private var _binding: FragmentConfirmationDialogBinding? = null
+    private val binding get() = _binding!!
     private var listener: ConfirmationListener? = null
     private var title: String? = null
     private var message: String? = null
@@ -38,7 +39,7 @@ class ConfirmationDialogFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentConfirmationDialogBinding.inflate(inflater, container, false)
+        _binding = FragmentConfirmationDialogBinding.inflate(inflater, container, false)
         isCancelable = false
         return binding.root
     }
@@ -57,6 +58,11 @@ class ConfirmationDialogFragment : DialogFragment() {
             listener?.onNegativeResponse()
             dismiss()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
