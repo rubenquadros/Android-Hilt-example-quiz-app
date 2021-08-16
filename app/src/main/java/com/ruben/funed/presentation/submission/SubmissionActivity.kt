@@ -14,6 +14,7 @@ import com.ruben.funed.domain.model.StatusRecord
 import com.ruben.funed.presentation.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -43,8 +44,8 @@ class SubmissionActivity : BaseActivity() {
     }
 
     private fun observeData() {
-        lifecycleScope.launchWhenStarted {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 submissionViewModel.getAnswersResult().collect { record ->
                     when (record.status) {
                         StatusRecord.LOADING -> {

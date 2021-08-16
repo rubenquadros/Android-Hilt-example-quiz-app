@@ -18,6 +18,7 @@ import com.ruben.funed.remote.model.TestResponse
 import com.ruben.funed.utility.ApplicationConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -68,8 +69,8 @@ class InstructionsActivity : BaseActivity() {
     }
 
     private fun observeData() {
-        lifecycleScope.launchWhenStarted {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 instructionsViewModel.getTestDetailsResult().collect { record ->
                     when (record.status) {
                         StatusRecord.LOADING -> {
